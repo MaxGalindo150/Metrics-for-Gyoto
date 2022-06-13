@@ -38,7 +38,7 @@ Schwarzschild::Schwarzschild():
 // Copy constructor
 Schwarzschild * Schwarzschild::clone () const { return new Schwarzschild(*this); }
 
-// Metric in covarint form
+// Metric in covariant form
 void Schwarzschild::gmunu(double g[4][4], const double * pos) const
 {
     double r = pos[1];
@@ -72,8 +72,8 @@ double Schwarzschild::gmunu(const double * pos, int mu, int nu) const
     return 0.;
 }
 
-//Metric in contravarint form
-void Schwarzschild::gmunu(double g[4][4], const double * pos) const
+//Metric in contravariant form
+void Schwarzschild::gmunu_up(double g[4][4], const double * pos) const
 {
     double r = pos[1];
     double sth = sin(pos[2]);
@@ -91,7 +91,7 @@ void Schwarzschild::gmunu(double g[4][4], const double * pos) const
     g[3][3] = 1./(r2*sth2);  
 }
 
-double Schwarzschild::gmunu(const double * pos, int mu, int nu) const
+double Schwarzschild::gmunu_up(const double * pos, int mu, int nu) const
 {
     double r = pos[1];
     double sth = sin(pos[2]);
@@ -104,4 +104,35 @@ double Schwarzschild::gmunu(const double * pos, int mu, int nu) const
     if ((mu==3) && (nu==3)) return 1./(r2*sth2);
     
     return 0.;
+}
+
+
+int Schwarzschild::christoffel(double dst[4][4][4], double const pos[4]) const
+{
+  int a, mu, nu;
+  for (a=0; a<4; ++a)
+    for(mu=0; mu<4; ++mu)
+      for(nu=0; nu<4; ++nu)
+	dst[a][mu][nu]=0.;
+
+  double r = pos[1];
+  double sth, cth;
+  sincos(pos[2], &sth, &cth);
+  double 
+    sth2=sth*sth, cth2 = cth*cth,
+    ctgth=cth/sth;
+  double r2 = r*r;
+  double r3 = r2*2;
+
+  dst[0][0][1] = dst[0][1][0] = 1./(r*(r-2.));
+  dst[1][0][0] = (r-2.)/r3;
+  dst[1][2][2] = -(r-2.);
+  dst[1][1][1] = - dst[0][0][1];  
+  dst[1][3][3] = -(r-2.)*sth2;
+  dst[2][3][3] = -sth*cth;
+  dst[2][1][2] = dst[2][2][1] = 1./r;
+  dst[3][1][3] = dst[3][3][1] = dst[2][1][2]
+  dst[3][2][3] = dst[3][3][2] = ctgth;
+
+  return 0.;
 }
