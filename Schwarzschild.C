@@ -52,7 +52,21 @@ void Schwarzschild::gmunu(double g[4][4], const double * pos) const
             g[mu][nu]=g[nu][mu]=0;
 
     g[0][0] = -(1.-2./r);
-    g[1][1] = pow(1-2./r,-1); 
+    g[1][1] = pow(1.-2./r,-1); 
     g[2][2] = r2;
     g[3][3] = r2*sth2;  
+}
+
+double Schwarzschild::gmunu(const double * pos, int mu, int nu) const
+{
+    double r = pos[1];
+    double sth = sin(pos[2]);
+    double sth2 = sth*sth;
+    double r2 = r*r;
+    
+    if ((mu==0) && (nu==0)) return -(1.-2./r);
+    if ((mu==1) && (nu==1)) return pow(1.-2./r,-1);
+    if ((mu==2) && (nu==2)) return r2;
+    if ((mu==3) && (nu==3)) return r2*sth2;
+ 
 }
