@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "Schwarzschild.C": "cpp"
+        "Schwarzschild.C": "cpp",
+        "MyKerr.C": "cpp"
     }
 }
