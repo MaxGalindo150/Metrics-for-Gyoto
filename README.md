@@ -1,2 +1,3 @@
 # Metrics-for-Gyoto
--Kerr
+-Schwarzschild
+-Disk free for differents metrics
