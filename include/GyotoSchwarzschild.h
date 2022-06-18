@@ -1,6 +1,6 @@
 /**
- *  \file GyotoKerrBL.h
- *  \brief KerrBL metric
+ *  \file GyotoSchwarzschild.h
+ *  \brief Schwarzschild metric
  *
  */
 
@@ -23,15 +23,17 @@
     along with Gyoto.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GyotoMyKerr_H_
-#define __GyotoMyKerr_H_ 
+#ifndef __GyotoSchwarzschild_H_
+#define __GyotoSchwarzschild_H_
 
 namespace Gyoto {
-  namespace Metric { class MyKerr; }
+  namespace Metric { class Schwarzschild; }
 }
 
 #include <GyotoMetric.h>
 #include <GyotoWorldline.h>
+
+
 
 #ifdef GYOTO_USE_XERCES
 #include <GyotoRegister.h>
@@ -39,23 +41,24 @@ namespace Gyoto {
 
 
 /// Default value for difftol_
-#define GYOTO_KERRBL_DEFAULT_DIFFTOL 1e-2
+#define GYOTO_SCHWARZSCHILD_DEFAULT_DIFFTOL 1e-2
 
 /**
- * \class Gyoto::Metric::KerrBL
+ * \class Gyoto::Metric::Schwarzschild
  * \brief Metric around a Kerr black-hole in Boyer-Lindquist coordinates
  */
-class Gyoto::Metric::MyKerr : public Metric::Generic {
-  friend class Gyoto::SmartPointer<Gyoto::Metric::MyKerr>;
+class Gyoto::Metric::Schwarzschild : public Metric::Generic {
+  friend class Gyoto::SmartPointer<Gyoto::Metric::Schwarzschild>;
   
   // Data : 
   // -----
  protected:
-  double spin_ ;  ///< Angular momentum parameter
+ double spin_ ;  ///< Angular momentum parameter
   double a2_ ; ///< spin_*spin_
   double a3_ ; ///< a2_*spin_
   double a4_ ; ///< a2_*a2_
 
+  
   /// Numerical tuning parameter
   /**
    * Small values yield more accurate integration at the expanse of
@@ -70,8 +73,8 @@ class Gyoto::Metric::MyKerr : public Metric::Generic {
   // -------------------------
  public: 
   GYOTO_OBJECT;
-  MyKerr(); ///< Default constructor
-  virtual MyKerr * clone () const ;
+  Schwarzschild(); ///< Default constructor
+  virtual Schwarzschild * clone () const ;
 
   // Accessors
   // ---------
@@ -113,7 +116,7 @@ class Gyoto::Metric::MyKerr : public Metric::Generic {
   void nullifyCoord(double coord[8], double & tdot2) const;
   void nullifyCoord(double coord[8]) const;
 
-  //  friend std::ostream& operator<<(std::ostream& , const MyKerr& ) ;
+  //  friend std::ostream& operator<<(std::ostream& , const Schwarzschild& ) ;
   //  std::ostream& print(std::ostream&) const ;
   virtual void circularVelocity(double const pos[4], double vel [4],
 				double dir=1.) const ;
@@ -133,7 +136,7 @@ class Gyoto::Metric::MyKerr : public Metric::Generic {
   // outside the API
   /* RK4 : y=[r,theta,phi,t,pr,ptheta], 
      cst=[a,E,L,Q,1/Q],dy/dtau=F(y,cst), h=proper time step. 
-     For MyKerr geodesic computation.
+     For Schwarzschild geodesic computation.
    */
   int myrk4(Worldline * line, Gyoto::state_t const &coordin, double h, Gyoto::state_t &res) const; //external-use RK4
   

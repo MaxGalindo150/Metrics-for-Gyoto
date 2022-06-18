@@ -1,6 +1,11 @@
 {
     "files.associations": {
+        "MyKerr.C": "cpp",
+        "Kerr.C": "cpp",
+        "PageThorneDiskFree.C": "cpp",
+        "ReissnerN.C": "cpp",
         "Schwarzschild.C": "cpp",
-        "MyKerr.C": "cpp"
+        "PageThorneDiskS.C": "cpp",
+        "KerrMod.C": "cpp"
     }
 }
