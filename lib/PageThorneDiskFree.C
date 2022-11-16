@@ -1,21 +1,4 @@
-/*
-    Copyright 2011-2014, 2016, 2018-2020 Frederic Vincent, Thibaut Paumard
 
-    This file is part of Gyoto.
-
-    Gyoto is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Gyoto is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Gyoto.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 #include "GyotoPhoton.h"
 #include "GyotoPageThorneDiskFree.h"
@@ -23,7 +6,7 @@
 #include "GyotoUtils.h"
 #include "GyotoFactoryMessenger.h"
 #include "GyotoKerrBL.h"
-#include "GyotoSchwarzschild.h"
+#include "GyotoMod.h"
 #include "GyotoKerrKS.h"
 
 
@@ -92,7 +75,7 @@ void PageThorneDiskFree::updateSpin() {
   if (!gg_) return;
   switch (gg_->coordKind()) {
   case GYOTO_COORDKIND_SPHERICAL:
-    aa_ = static_cast<SmartPointer<Metric::Schwarzschild> >(gg_) -> spin();
+    aa_ = static_cast<SmartPointer<Metric::Mod> >(gg_) -> spin();
     break;
   case GYOTO_COORDKIND_CARTESIAN:
     aa_ = static_cast<SmartPointer<Metric::KerrKS> >(gg_) -> spin();
@@ -116,7 +99,7 @@ void PageThorneDiskFree::updateSpin() {
 void PageThorneDiskFree::metric(SmartPointer<Metric::Generic> gg) {
   if (gg_) gg_->unhook(this);
   string kin = gg->kind();
-  if (kin != "Schwarzschild" && kin != "Schwarzschild")
+  if (kin != "Mod" && kin != "Mod")
     GYOTO_ERROR
       ("PageThorneDiskFree::metric(): metric must be KerrBL or KerrKS");
   ThinDisk::metric(gg);

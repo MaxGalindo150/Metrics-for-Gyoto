@@ -423,7 +423,7 @@ int Schwarzschild::diff(const double* coordGen, const double* cst, double* res) 
   
   res[5] =(Deltam1*Deltam1*E2)/r2 - (pr*pr)/r2 - (ptheta*ptheta)/r3 - L2/(r3*sintheta2); // prdot
   
-  res[6]= (ptheta*ptheta*costheta)/(sintheta2*sintheta); // pthetadot
+  res[6]= (L2*costheta)/(sintheta2*sintheta); // pthetadot
   
   res[7] = 0.;//pphidot: pphi = cst = L
 
